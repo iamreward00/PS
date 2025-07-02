@@ -21,10 +21,11 @@ public class Main {
             num_arr[i] = st.charAt(i) - 'a' + 1;
         }
         long sum_num = 0;
-
+        long threeone = 1;
         for (int i = 0; i < n; i++) {
-            long temp_num = (long) (num_arr[i] * Math.pow(31, i) ) % 1234567891  ;
-            sum_num = sum_num +  temp_num;
+            long temp_num = (long) (num_arr[i] * threeone) % 1234567891;
+            sum_num = (sum_num + temp_num) % 1234567891;
+            threeone = (threeone * 31) % 1234567891;
         }
 
         System.out.println(sum_num);
