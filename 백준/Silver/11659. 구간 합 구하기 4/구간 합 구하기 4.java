@@ -49,3 +49,31 @@ public class Main {
         }
     }
 }
+/// 정답 맞추고 2년전 코드 보는데 시작인덱스를 1 로하는게 관리하는게 더 괜찮은거 같기도 하고
+/// if else 없이 arr[0] = 0  이니까 코드 통일도 괜찮을거같고
+/// 2년전이 왜 더 코드가 괜찮지 흠
+// import java.util.Scanner;
+
+// public class Main {
+// 	public static void main(String[] args) {
+// 		Scanner scan = new Scanner(System.in);
+// 		int n;
+// 		int k;
+// 		n = scan.nextInt();
+// 		k = scan.nextInt();
+// 		int count = 0;
+// 		int one,two;
+// 		int sum[] = new int[n+1];
+// 		for(int i = 1; i <= n; i++) {
+// 			count = scan.nextInt();
+// 			sum[i] = sum[i-1]+ count;
+// 		}
+// 		for(int i = 0; i < k; i++) {
+// 			one = scan.nextInt();
+// 			two = scan.nextInt();
+// 			System.out.println(sum[two]-sum[one-1]);
+// 		}
+		
+	
+// 	}
+// }
