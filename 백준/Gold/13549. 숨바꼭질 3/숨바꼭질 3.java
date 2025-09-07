@@ -1,57 +1,62 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.nio.Buffer;
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.Arrays;
+import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 public class Main {
 
-    static int N, K;
-    static boolean[] visited;
-    static int ans = 100000;
+	static int dijk(int st, int ed){
+		int cnt = 0;
 
-    public static void main(String args[]) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        N = Integer.parseInt(st.nextToken());
-        K = Integer.parseInt(st.nextToken());
-
-        visited = new boolean[ans + 1];
-        bfs();
-        System.out.println(ans);
-    }
-
-    public static void bfs() {
-        
-        Queue<int[]> queue = new ArrayDeque<>();
-        queue.offer(new int[]{N, 0});
-        
-        while(!queue.isEmpty()) {
-            int[] temp = queue.poll();
-            int pos = temp[0];
-            int time = temp[1];
-            visited[pos] = true;
-
-            if(pos == K) {
-                ans = Math.min(ans, time);
-            }
-            if(pos *2 <= ans && !visited[pos * 2]) {
-                queue.offer(new int[]{pos * 2, time});
-            }
-            if(pos + 1 <= ans && !visited[pos + 1]) {
-                queue.offer(new int[]{pos + 1, time + 1});
-            }
-            if(pos - 1 >= 0 && !visited[pos - 1]) {
-                queue.offer(new int[]{pos - 1, time + 1});
-            }
+		PriorityQueue<int[]> pq = new PriorityQueue<int[]>((o1, o2) -> Integer.compare(o1[1], o2[1]));
+		boolean[] vis = new boolean[222222];
+		int[] minD = new int[222222];
+		Arrays.fill(minD, 199999999);
+		minD[st] = 0;
+		
+		pq.add(new int[] { st, minD[st]});
+		
+		while(!pq.isEmpty()){
+			
+			int[] cur = pq.poll();
+			int a= cur[0];
+			int p = cur[1];
+			if(a == ed){
+				cnt = p;
+				break;
+			}
+			if(vis[a])continue;
+			
+			vis[a] = true;
+			
+			int[][] temp = { {a*2,0}, {a +1,1}, {a-1,1}};
+			for(int[] i : temp){
+				int aa = i[0];
+				int pp = i[1];
+				if(aa < 0 || aa > 202020) continue;
+				if(vis[aa]) continue;
+				if(minD[aa] > p + pp){
+					minD[aa] = p + pp;
+					pq.add(new int[] {aa,minD[aa]});
+				}
+			}
+		}
 
 
+		return cnt;
+	}
 
-        }
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int N = Integer.parseInt(st.nextToken());
+		int M = Integer.parseInt(st.nextToken());
+		
+		System.out.println(dijk(N,M));
 
-    
-    }
+
+		
+	}
 }
+
