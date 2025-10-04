@@ -1,39 +1,26 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
-/**
- * Main
- */
 public class Main {
 
-  public static void main(String[] args) {
-    int n;
-    int num = 0;
-    int sum = 0;
-    Scanner scanner = new Scanner(System.in);
-    n = scanner.nextInt();
-    scanner.close();
+    static boolean check(String str){
 
-    for(int i = 1; i <= n; i++){
-      int check = 0;
-
-      ArrayList<Integer> array = new ArrayList<>();
-      num = i;
-      while(num > 0){
-        array.add(num%10);
-        num = num/10;
-      }
-      for (int j = 0; j < array.size() - 2 ; j++) {
-        if (array.get(j)-array.get(j+1) != array.get(j+1)-array.get(j+2)) {
-          check++; 
-        }
-      }
-      if (check == 0) {
-        sum++;
-      }
+        int size = str.length();
+        
+        if(size <= 2) return true;
+        if(str.charAt(0) - str.charAt(1) == str.charAt(1) - str.charAt(2)) return true;
+        
+        return false;
     }
-    System.out.println(sum
-    );
 
-  }
+    public static void main(String[] args) throws Exception{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
+        int cnt = 0;
+        for(int i = 1; i<= N; i++){
+            if(check(i+"")) cnt++;
+        }
+        System.out.println(cnt);
+
+    }
 }
