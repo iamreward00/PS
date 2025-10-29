@@ -2,7 +2,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.PriorityQueue;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -46,17 +47,8 @@ public class Main {
      * N 이 2000 이네
      * 
      * 그러면 다익 N 번돌리면? 가중치 1이라고 잡고
-     * 다익이
-     * elogv 니까
-     * 이걸 n 번하는 거니까
-     * 
-     * 근데 쿼리가 1000개고
-     * n 이 2000이니까
-     * 매 질문마다
-     * 2000번 탐색하니까
-     * 2,000,000
-     * 아 넉넉해 괜찮아
-     * 
+     * 근데 가중치 동일하니까
+     * BFS 로된다~ 
      * 
      * 
      * 
@@ -68,33 +60,27 @@ public class Main {
     static int[][] arr;
     static int SIZE = 999999999;
 
-    static int[] dijk(int idx){
-        int[] minD = new int[n+1];
-        Arrays.fill(minD, SIZE);
-        minD[idx] = 0;
-        PriorityQueue<int[]> pq = new PriorityQueue<>((o1, o2) -> Integer.compare(o1[1], o2[1]) );
-        pq.add(new int[] {idx, minD[idx]});
 
-        boolean[] vis = new boolean[n+1];
+    static int[] bfs(int startNode) {
+        int[] dist = new int[n + 1];
+        Arrays.fill(dist, SIZE); 
+        Queue<Integer> q = new LinkedList<>();
+        
+        q.add(startNode);
+        dist[startNode] = 0;
 
-        while(!pq.isEmpty()){
-            int[] cur = pq.poll();
-            int a = cur[0];
-            int w = cur[1];
-            if(vis[a]) continue;
-            vis[a] = true;
-            for(int i : list[a]){
-                if(minD[i] > w + 1){
-                    minD[i] = w + 1;
-                    pq.add(new int[] { i, minD[i]});
+        while (!q.isEmpty()) {
+            int current = q.poll();
+
+            for (int neighbor : list[current]) {
+                
+                if (dist[neighbor] == SIZE) {
+                    dist[neighbor] = dist[current] + 1;
+                    q.add(neighbor);
                 }
             }
-
         }
-
-
-
-        return minD;
+        return dist;
     }
 
     public static void main(String[] args) throws Exception{
@@ -126,7 +112,7 @@ public class Main {
 
         arr = new int[n+1][n+1];
         for(int i = 1; i <= n; i++){
-            arr[i] = dijk(i);
+            arr[i] = bfs(i);
         }
         //for(int i = 1; i <= n; i++) System.out.println(Arrays.toString(arr[i]));
         for(int i = 0; i < q; i++){
