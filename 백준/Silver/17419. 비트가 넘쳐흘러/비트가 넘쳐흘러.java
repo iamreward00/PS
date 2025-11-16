@@ -59,27 +59,33 @@ public class Main {
      * biginteger
      * 여기에 이진수 계산도 있을텐데
      * 
-     *  
+     * why 51점
+     * 
+     * mabye 시초 
+     * 이거 테케 여러개 해보니까
+     * 
+     * 오ㅡㄴ쪽 1부터 하나씩 사라지는대
+     * 1의개수가 답아님?
+     * 그런거간틍넫
+     * 
+     * 저거 테케 몇개 직접해보면
+     * 맨오른쪽 1 밑으로 싹 날아감
+     * 1개수가 답같은데
+     * 아니네
+     * ㅎㅎㅈㅅ
+     * 
+     * 
+     * 
      */
 
     public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         String str = br.readLine();
-        BigInteger big = new BigInteger(str,2);
-        int cnt = 0;
-        BigInteger zero = new BigInteger("0");
-        BigInteger one = new BigInteger("1");
-        while(true){
-            if(big.equals(zero)) break;
-            BigInteger a = big.not();
-            BigInteger b = a.add(one);
-            BigInteger c = big.and(b);
-            big = big.subtract(c);
-            //System.out.println(big.toString(2));
-            cnt++;
+        int cnt = 0;        
+        for(int i = 0; i< n; i++){
+            if(str.charAt(i) =='1') cnt++;
         }
-
         System.out.println(cnt);
 
     }
