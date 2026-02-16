@@ -13,35 +13,36 @@ public class Main {
     public static void main(String[] args) throws Exception{
         BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        
+        StringBuilder sb = new StringBuilder();
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
         char[] arr = br.readLine().toCharArray();
 
-        int cnt = 0;
-        String ans = "";
         char last = '.';
         boolean check = false;
         for(int i = n-1; i >= 0; i--){
             char cur = arr[i];
             if(cur != 'A'&& cur != 'E' &&  cur != 'I' && cur != 'O' && cur != 'U' && last =='.'){
-                if(cnt>=2) continue;
-                last = arr[i];
+                last = cur;
+                sb.append(last);
             }
-            if(cnt>=2){
-                ans = arr[i] + ans;
+            if(last == '.') continue;
+            
+            if(sb.length()>=3){
+                sb.append(cur);
             }
-            if(arr[i] == 'A') cnt ++ ;
-            if(ans.length() >= m-3){
+            else if(cur == 'A') {
+                sb.append(cur);
+            }
+            if(sb.length()==m){
                 check = true;
                 break;
             }
         }
-        ans = ans + "AA" + last;
-        if(last=='.') check = false;
+        
         if(check){
             System.out.println("YES");
-            System.out.println(ans);
+            System.out.println(sb.reverse());
         }
         else{
             System.out.println("NO");
